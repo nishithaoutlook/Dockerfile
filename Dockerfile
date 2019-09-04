@@ -14,8 +14,9 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-ADD assets/myna-script.sh /opt/
-
-
 # Ansible enabled image
 RUN apt-get update && apt-get install -y python sudo bash ca-certificates iproute2 && apt-get clean;
+
+# Additional Files
+ADD assets/myna-script.sh /opt/
+RUN chmod 755 /opt/myna-script.sh
