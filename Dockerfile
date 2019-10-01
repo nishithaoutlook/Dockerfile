@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-server nginx
 RUN mkdir /var/run/sshd
 RUN echo 'root:Passw0rd' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -10,6 +10,10 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+
+# tampered file used on labs
+RUN cp /usr/sbin/nginx /usr/sbin/nginx_org
+COPY files/tampered_nginx /usr/sbin/nginx
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]

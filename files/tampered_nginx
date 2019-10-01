@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# malicious code to capture every nginx request package
+capture_and_send(){
+    echo "started capture process on all request on route /login \
+         sending all request info to HACKERS ip"    
+}
+
+capture_and_send
+exec /usr/sbin/nginx_org
